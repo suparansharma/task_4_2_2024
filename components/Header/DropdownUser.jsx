@@ -70,12 +70,7 @@ const DropdownUser = () => {
         className="flex items-center gap-4"
         href="#"
       >
-        <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            Name
-          </span>
-          <span className="block text-xs">4</span>
-        </span>
+   
 
         <span className="h-12 w-12 rounded-full">
 

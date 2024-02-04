@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios';
 import ToastMessage from '@/components/Toast';
 
-const FromOfUser = ({ setUsers, isOpen, onClose, setEditData,isParentRender }) => {
+const FromOfUser = ({ setUsers, isOpen, onClose, setEditData, isParentRender }) => {
     const [userInfo, setUserInfo] = useState({
         name: '',
         username: '',
@@ -11,9 +11,6 @@ const FromOfUser = ({ setUsers, isOpen, onClose, setEditData,isParentRender }) =
     const notify = useCallback((type, message) => {
         ToastMessage({ type, message });
     }, []);
-    
-
-    console.log("userInfo", userInfo)
 
     useEffect(() => {
         if (setEditData === null) {
@@ -42,7 +39,7 @@ const FromOfUser = ({ setUsers, isOpen, onClose, setEditData,isParentRender }) =
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-     
+
 
         if (setEditData?.id) {
 
@@ -53,10 +50,9 @@ const FromOfUser = ({ setUsers, isOpen, onClose, setEditData,isParentRender }) =
                 }
                 notify('success', "successfully Update");
                 onClose();
-                // setUsers(prevUsers => [...prevUsers, response.data]);
-              } catch (error) {
+            } catch (error) {
                 console.error('Error updating user:', error);
-              }
+            }
         } else {
             try {
                 const response = await axios.post('/api/createUser', userInfo);

@@ -70,20 +70,7 @@ const UserList = () => {
     if (isRender) fetchUsers();
   };
 
-  const handleCreateUser = async () => {
-    try {
-      const response = await axios.post('/api/createUser', {
-        name: newUserName,
-        username: newUserUsername,
-      });
 
-      setUsers(prevUsers => [...prevUsers, response.data]);
-      setNewUserName('');
-      setNewUserUsername('');
-    } catch (error) {
-      console.error('Error creating user:', error);
-    }
-  };
 
 
 
@@ -93,7 +80,6 @@ const UserList = () => {
     {
       title: "SL",
       fixed: "left",
-      // render: (text, record, index) => index + 1,
       dataIndex: "id"
     },
     {
@@ -126,10 +112,6 @@ const UserList = () => {
           justify="space-between"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <a style={{ color: "green" }}>
-            <EyeOutlined style={{ fontSize: "22px" }} />
-          </a>
-
           <a onClick={() => handleEdit(row)} className="text-primary">
             <EditOutlined style={{ fontSize: "22px" }} />
           </a>
