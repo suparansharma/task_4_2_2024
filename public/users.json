@@ -230,26 +230,21 @@
     }
   },
   {
-    "id": 11,
-    "name": "Rahim",
-    "username": "rahim"
-  },
-  {
     "id": 12,
-    "name": "",
-    "username": ""
+    "name": "Update now",
+    "username": "updateuser",
+    "email": "updateuseremail.com"
   },
   {
-    "id": 13
+    "id": 16,
+    "name": "Update Now",
+    "username": "updateuser",
+    "email": "updateuseremail"
   },
   {
     "id": 14,
-    "name": "Ranaa",
-    "username": "ranaa"
-  },
-  {
-    "id": 15,
-    "name": "New users",
-    "username": "newuser"
+    "name": "Rahim Uddin update",
+    "username": "rahimuddin upate",
+    "email": "rahimuddin@gmail.com"
   }
 ]

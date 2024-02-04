@@ -4,14 +4,15 @@ import { Row, Table, Tag } from "antd";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import UserFrom from './userFrom';
 import FromOfUser from './FromOfUser';
+import DeleteUser from './DeleteUser';
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [newUserName, setNewUserName] = useState('');
   const [newUserUsername, setNewUserUsername] = useState('');
   const [editData, setEditData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteIsModalOpen] = useState(false);
 
 
   /** Add start */
@@ -22,6 +23,26 @@ const UserList = () => {
   /** Add end */
 
 
+
+  /** edit start */
+  const handleEdit = (data) => {
+    setEditData(data);
+    setIsModalOpen(true);
+  }
+  /** edit end */
+
+
+  /** Delete start */
+  const handleDelete = (data) => {
+    setEditData(data);
+    setDeleteIsModalOpen(true);
+  }
+  const closeDeleteModal = () => {
+    setDeleteIsModalOpen(false);
+  };
+  /** Delete end */
+
+
   /**Modal close Function  Start*/
   const closeModal = () => {
     setIsModalOpen(false);
@@ -29,18 +50,25 @@ const UserList = () => {
   /**Modal close Function  End*/
 
   console.log("users", users)
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('/users.json');
-        setUsers(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
 
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('/users.json');
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+  useEffect(() => {
     fetchUsers();
   }, []);
+
+
+
+  const reFetchHandler = (isRender) => {
+    if (isRender) fetchUsers();
+  };
 
   const handleCreateUser = async () => {
     try {
@@ -65,7 +93,8 @@ const UserList = () => {
     {
       title: "SL",
       fixed: "left",
-      render: (text, record, index) => index + 1,
+      // render: (text, record, index) => index + 1,
+      dataIndex: "id"
     },
     {
       title: "Name",
@@ -101,11 +130,11 @@ const UserList = () => {
             <EyeOutlined style={{ fontSize: "22px" }} />
           </a>
 
-          <a className="text-primary">
+          <a onClick={() => handleEdit(row)} className="text-primary">
             <EditOutlined style={{ fontSize: "22px" }} />
           </a>
 
-          <a className="text-danger">
+          <a onClick={() => handleDelete(row)} className="text-danger">
             <DeleteOutlined style={{ fontSize: "22px" }} />
           </a>
         </Row>
@@ -136,7 +165,8 @@ const UserList = () => {
           </button>
         </div>
 
-        <FromOfUser setUsers={setUsers} isOpen={isModalOpen} onClose={closeModal} setEditData={editData} />
+        <FromOfUser setUsers={setUsers} isOpen={isModalOpen} onClose={closeModal} setEditData={editData} isParentRender={reFetchHandler} />
+        <DeleteUser setUsers={setUsers} isOpen={isDeleteModalOpen} onClose={closeDeleteModal} data={editData} isParentRender={reFetchHandler} />
 
         <Table
           className="border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark text-black dark:text-white"
